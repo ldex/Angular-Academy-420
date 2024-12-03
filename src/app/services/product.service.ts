@@ -21,6 +21,8 @@ export class ProductService {
                       .http
                       .get<Product[]>(this.baseUrl)
                       .pipe(
+                        tap(console.table),
+                        delay(1500), // Just for the demo!!!
                         catchError(this.handleError)
                       )
   }
