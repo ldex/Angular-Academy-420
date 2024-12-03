@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { AfterViewInit, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Product } from '../../models/product.interface';
 import { AsyncPipe, CurrencyPipe, SlicePipe, UpperCasePipe } from '@angular/common';
 import { CustomCurrencyPipe } from '../../pipes/custom-currency.pipe';
@@ -12,10 +12,28 @@ import { catchError, EMPTY, Observable } from 'rxjs';
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
   title: string = 'Products'
   selectedProduct: Product
   errorMessage: string
+
+  constructor() {
+
+  }
+
+  ngOnInit() {
+
+  }
+
+  ngAfterViewInit(): void {
+
+  }
+
+  ngOnDestroy(): void {
+
+  }
+
+
 
   // Pagination
   pageSize = 5
