@@ -1,0 +1,20 @@
+<h2>
+    {{ title }}
+</h2>
+
+@if (products$ | async; as products) {
+    <ul class="products">
+        @for (product of products; track product.id) {
+            <li [class.discontinued]="product.discontinued"
+                [class.selected]="selectedProduct === product"
+                (click)="onSelect(product)">
+                <span class="name">{{ product.name | uppercase }}</span>
+                <span class="description">{{ product.description }}</span>
+                <span class="price">{{ product.price | currency:'EUR' }}</span>
+            </li>
+        }
+    </ul>
+}
+
+
+<app-product-detail [product]="selectedProduct"></app-product-detail>
