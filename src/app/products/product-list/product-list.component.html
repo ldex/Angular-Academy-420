@@ -2,6 +2,12 @@
     {{ title }}
 </h2>
 
+@if (errorMessage) {
+    <div class="errorMessage">
+        {{ errorMessage }}
+    </div>
+}
+
 @if (products$ | async; as products) {
     <ul class="products">
         @for (product of products; track product.id) {

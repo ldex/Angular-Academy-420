@@ -4,7 +4,7 @@ import { AsyncPipe, CurrencyPipe, UpperCasePipe } from '@angular/common';
 import { CustomCurrencyPipe } from '../../pipes/custom-currency.pipe';
 import { ProductDetailComponent } from '../product-detail/product-detail.component';
 import { ProductService } from '../../services/product.service';
-import { Observable } from 'rxjs';
+import { catchError, EMPTY, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -15,8 +15,22 @@ import { Observable } from 'rxjs';
 export class ProductListComponent {
   title: string = 'Products'
   selectedProduct: Product
+
+  errorMessage: string
+
   private productService = inject(ProductService)
-  products$: Observable<Product[]> = this.productService.products$
+
+  products$: Observable<Product[]> = this
+                                        .productService
+                                        .products$
+                                        .pipe(
+                                          catchError(
+                                            error => {
+                                              this.errorMessage = error
+                                              return EMPTY
+                                            }
+                                          )
+                                        )
 
   onSelect(product: Product) {
     this.selectedProduct = product
