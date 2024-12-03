@@ -16,6 +16,10 @@ export class ProductService {
     this.initProducts()
   }
 
+  resetList() {
+    this.initProducts()
+  }
+
   initProducts() {
     this.products$ = this
                       .http
@@ -23,7 +27,8 @@ export class ProductService {
                       .pipe(
                         tap(console.table),
                         delay(1500), // Just for the demo!!!
-                        catchError(this.handleError)
+                        catchError(this.handleError),
+                        shareReplay()
                       )
   }
 
