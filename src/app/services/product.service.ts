@@ -16,6 +16,10 @@ export class ProductService {
     this.initProducts()
   }
 
+  deleteProduct(id: number): Observable<any> {
+    return this.http.delete(this.baseUrl + id);
+  }
+
   insertProduct(newProduct: Product): Observable<Product> {
     newProduct.modifiedDate = new Date();
     return this.http
