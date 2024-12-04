@@ -5,6 +5,7 @@ import { CustomCurrencyPipe } from '../../pipes/custom-currency.pipe';
 import { ProductDetailComponent } from '../product-detail/product-detail.component';
 import { ProductService } from '../../services/product.service';
 import { catchError, EMPTY, Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -12,28 +13,17 @@ import { catchError, EMPTY, Observable } from 'rxjs';
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
-export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ProductListComponent {
   title: string = 'Products'
   selectedProduct: Product
   errorMessage: string
 
+  private productService = inject(ProductService)
+  private router = inject(Router)
+
   constructor() {
 
   }
-
-  ngOnInit() {
-
-  }
-
-  ngAfterViewInit(): void {
-
-  }
-
-  ngOnDestroy(): void {
-
-  }
-
-
 
   // Pagination
   pageSize = 5
@@ -55,7 +45,6 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.pageNumber++
   }
 
-  private productService = inject(ProductService)
 
   products$: Observable<Product[]> = this
                                         .productService
@@ -71,5 +60,6 @@ export class ProductListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onSelect(product: Product) {
     this.selectedProduct = product
+    this.router.navigateByUrl('/products/' + product.id)
   }
 }
