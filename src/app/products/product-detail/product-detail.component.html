@@ -1,4 +1,4 @@
-@if (product) {
+@if (product$ | async; as product) {
     <div>
         <h2>{{product.name | uppercase}}</h2>
         @if (product.imageUrl) {
